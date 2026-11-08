@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Kaanpiastri 🧡</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fff3e8, #ffe0c2, #fff8f0);
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    text-align: center;
+}
+
+.container {
+    width: 96%;
+    max-width: 1000px;
+    padding: 15px;
+}
+
+h1 {
+    color: #f28c28;
+    font-size: clamp(30px, 5vw, 48px);
+}
+
+.intro {
+    color: #d98437;
+    font-size: 19px;
+}
+
+.gift-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: clamp(150px, 30vw, 280px);
+    line-height: 1.2;
+    transition: transform .2s;
+    filter: drop-shadow(0 12px 12px rgba(220, 130, 50, .2));
+}
+
+.gift-button:hover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.gift-button:active {
+    transform: scale(.9);
+}
+
+.hint {
+    color: #d98437;
+    font-size: 19px;
+}
+
+.message {
+    display: none;
+    margin: 15px auto;
+    font-size: clamp(28px, 6vw, 58px);
+    font-weight: bold;
+    animation: rainbow 2.5s linear infinite, pop .5s ease;
+    line-height: 1.2;
+}
+
+.cat-row {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+    color: #c9782b;
+    font-size: 22px;
+}
+
+.cat {
+    font-size: 55px;
+}
+
+.arrow {
+    font-size: 38px;
+    animation: point .6s infinite alternate;
+}
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 15px;
+    pointer-events: none;
+    z-index: 10;
+    animation: fall var(--duration) linear forwards;
+}
+
+@keyframes rainbow {
+    0% { color: #ff8c00; }
+    20% { color: #ffb347; }
+    40% { color: #ff6b35; }
+    60% { color: #e6a23c; }
+    80% { color: #ff7043; }
+    100% { color: #ff8c00; }
+}
+
+@keyframes fall {
+    to {
+        transform: translate3d(var(--drift), 110vh, 0) rotate(900deg);
+        opacity: .9;
+    }
+}
+
+@keyframes point {
+    from { transform: translateX(-4px); }
+    to { transform: translateX(9px); }
+}
+
+@keyframes pop {
+    from {
+        opacity: 0;
+        transform: scale(.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="container">
+
+    <h1>For Kaanpiastri 🧡</h1>
+
+    <p class="intro">
+        A little surprise is waiting for you...
+    </p>
+
+    <button class="gift-button" id="giftButton">
+        🎁
+    </button>
+
+    <p class="hint" id="hint">
+        Click the gift 6 times! 🧡
+    </p>
+
+    <div class="message" id="message">
+        THE BEST TWIN IN THE WORLD 🧡
+    </div>
+
+    <div class="cat-row" id="catRow">
+        <span class="cat"> ฅ^•ﻌ•^ฅ </span>
+        <span class="arrow">➡️</span>
+        <span>That's YOU! 🧡</span>
+    </div>
+
+</main>
+
+<script>
+
+const giftButton = document.getElementById("giftButton");
+const hint = document.getElementById("hint");
+const message = document.getElementById("message");
+const catRow = document.getElementById("catRow");
+
+let clicks = 0;
+const clicksNeeded = 6;
+
+function burstConfetti() {
+
+    const colors = [
+        "#ff8c00",
+        "#ffb347",
+        "#ff6b35",
+        "#ffc857",
+        "#ff7043",
+        "#ffd166"
+    ];
+
+    for (let i = 0; i < 90; i++) {
+
+        const piece = document.createElement("span");
+
+        piece.className = "confetti";
+
+        piece.style.left = Math.random() * 100 + "vw";
+
+        piece.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.borderRadius =
+            Math.random() > 0.5 ? "50%" : "2px";
+
+        piece.style.setProperty(
+            "--drift",
+            (Math.random() * 260 - 130) + "px"
+        );
+
+        piece.style.setProperty(
+            "--duration",
+            (2 + Math.random() * 2) + "s"
+        );
+
+        document.body.appendChild(piece);
+
+        piece.addEventListener("animationend", () => {
+            piece.remove();
+        });
+    }
+}
+
+giftButton.addEventListener("click", () => {
+
+    clicks++;
+
+    // HER TIKLAMADA KONFETİ PATLAR
+    burstConfetti();
+
+    if (clicks < clicksNeeded) {
+
+        let remaining = clicksNeeded - clicks;
+
+        hint.textContent =
+            remaining + " more clicks to reveal the surprise! 🧡";
+
+    } else {
+
+        hint.textContent = "SURPRISE!!! 🎉";
+
+        message.style.display = "block";
+
+        catRow.style.display = "flex";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+
